@@ -1,0 +1,145 @@
+#:kivy 1.1
+
+<Translator>:
+    text_box1: text_box1
+    text_box2: text_box2
+    out1_label: out1_label
+    out2_label: out2_label
+    new_btn: new_btn
+    trans_btn: trans_btn
+    dict_label: dict_label
+
+    FloatLayout:
+        id: float_layout
+        orientation: 'vertical'
+
+        canvas:
+            Color:
+                rgb: (0.2, 0.1, 0.1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            orientation: 'horizontal'
+            pos_hint: {'left': 0., 'top': 1.}
+            size_hint: 1.0, .1
+
+            Button:
+                id: config_btn
+                text: 'Settings'
+                size_hint_x: None
+                width: self.texture_size[0] + dp(10)
+                height: self.texture_size[1]
+                pos_hint: {'left': 0., 'top': 0.9}
+                on_release: root.do_config()
+
+            Label:
+                id: dict_label
+                text: 'Dictionary not chosen'
+                background_color: 1, 1, 0, 1
+
+        BoxLayout:
+            orientation: 'vertical'
+            pos_hint: {'x': .05, 'y': .6}
+            size_hint: 0.9, .2
+
+            TextInput:
+                id: out1_label
+                text: 'Dict1'
+                readonly: True
+                background_color: 0.2, 0.1, 0.1, 1
+                foreground_color: 1, 0.8, 0, 1
+                font_name: "Roboto"
+                font_size: '20sp'
+                size_hint: 1, 0.3
+
+            ScrollView:
+                id: scrlv1
+                do_scroll_x: False
+                do_scroll_y: True
+                size_hint: 1, 0.7
+
+                TextInput:
+                    id: text_box1
+                    text: ''
+                    font_name: "Roboto"
+                    background_color: 0, .2, 0.2, 1
+                    foreground_color: 1, 0.8, 0, 1
+                    font_size: '20sp'
+                    size_hint_y:  None
+                    height: max(self.minimum_height, scrlv1.height)
+
+        FloatLayout:
+            orientation: 'horizontal'
+            pos_hint: {'x': .2, 'y': .40}
+            size_hint: .5, .1
+
+            Button:
+                id: new_btn
+                text: "New"
+                pos_hint: {'x': .1, 'y': .50}
+                size_hint: .2, 1.
+                foreground_color: 0, 0.6, 0, 1
+                on_release: root.reset_textboxes()
+
+            Button:
+                id: trans_btn
+                pos_hint: {'x': .6, 'y': .50}
+                size_hint: .2, 1.
+                on_release: root.do_translate()
+                Image:
+                    source: 'up_down.png'
+                    y: self.parent.y
+                    center_x: self.parent.center_x
+                    height: self.parent.height
+                    allow_stretch: True
+
+        BoxLayout:
+            orientation: 'vertical'
+            pos_hint: {'x': .05, 'y': .2}
+            size_hint: 0.9, .2
+
+            TextInput:
+                id: out2_label
+                text: 'Dict2'
+                readonly: True
+                background_color: 0.2, 0.1, 0.1, 1
+                foreground_color: 0, 1, 0.8, 1
+                font_name: "Roboto"
+                font_size: '20sp'
+                size_hint: 1, 0.3
+
+            ScrollView:
+                id: scrlv2
+                do_scroll_x: False
+                do_scroll_y: True
+                size_hint: 1, 0.7
+
+                TextInput:
+                    id: text_box2
+                    text: ''
+                    font_name: "Roboto"
+                    background_color: 0, 0.2, .2, 1
+                    foreground_color: 0, 1, 0.8, 1
+                    font_size: '20sp'
+                    size_hint_y:  None
+                    height: max(self.minimum_height, scrlv2.height)
+
+
+<CopyTranslateBubble>
+    orientation: 'horizontal'
+    size_hint: (None, None)
+    size: (350, 70)
+    BubbleButton:
+        text: 'Copy'
+        background_color: .2, 0, .2, 0.7
+        foreground_color: 0., 1, 1, 1
+        font_size: '15sp'
+        on_release: root.do('Copy')
+    BubbleButton:
+        text: 'Translate'
+        background_color: .2, 0, .2, 0.7
+        foreground_color: 0., 1, 1, 1
+        font_size: '15sp'
+        on_release: root.do('Translate')
